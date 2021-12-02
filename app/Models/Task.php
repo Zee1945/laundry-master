@@ -20,4 +20,13 @@ class Task extends Model
         'status_bayar',
         'created_by',
     ];
+
+    public function jeniss()
+    {
+        return $this->belongsTo(Jenis::class, 'id_jenis', 'id');
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 }

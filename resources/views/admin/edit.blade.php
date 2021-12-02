@@ -1,101 +1,147 @@
 @extends('layouts.admin')
 
 @section('content')
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-                    
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> Edit Paket Travel {{$item->title}}</h1>
-                        
-                    </div>
 
-                    <!-- Content Row -->
-                    
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"> Edit Paket Laundry dengan kode : <span
+                class="badge badge-dark">{{$item->kode}}</span> </h1>
 
-               
-{{-- <div class="card-body">
+    </div>
+
+    <!-- Content Row -->
+
+
+
+    {{-- <div class="card-body">
    
 </div> --}}
 
-@if ($errors->any())
+    @if ($errors->any())
 
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
 
-        <li>{{$error}}</li>
-            
-        @endforeach
-    </ul>
-</div>
-    
-@endif
+            <li>{{$error}}</li>
 
-<div class="card shadow">
-   <div class="card-body">
-       <form action="{{route('travel-package.update', $item->id)}}" method="POST">
-        @method('PUT')
-        @csrf
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" placeholder="Title..." value="{{$item->title}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="Location">Location</label>
-            <input type="text" class="form-control" name="location" placeholder="Location..." value="{{$item->location}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="about">About</label>
-            <textarea name="about" id="" rows="10" class="d-block w-100 form-control">{{$item->about}}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="featured_event">Featured Event</label>
-            <input type="text" class="form-control" name="featured_event" placeholder="Featured Event..." value="{{$item->featured_event}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="Language">Language</label>
-            <input type="text" class="form-control" name="language" placeholder="Language..." value="{{$item->language}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="Foods">Foods</label>
-            <input type="text" class="form-control" name="foods" placeholder="Foods..." value="{{$item->foods}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="departure_date">Departure Date</label>
-            <input type="date" class="form-control" name="departure_date" placeholder="Departure Date..." value="{{$item->departure_date}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="duration">Duration</label>
-            <input type="text" class="form-control" name="duration" placeholder="Duration..." value="{{$item->duration}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="type">Type</label>
-            <input type="text" class="form-control" name="type" placeholder="Type..." value="{{$item->type}}" id="">
-        </div>
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="number" class="form-control" name="price" placeholder="Price..." value="{{$item->price}}" id="">
-        </div>
+            @endforeach
+        </ul>
+    </div>
 
-        <button type="submit" class="btn btn-primary btn-block"> Simpan Perubahan</button>
+    @endif
 
-    
-    
-    </form>
-   </div>
-</div>
-              
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="{{route('task-update',$item->id)}}" method="POST">
+                @method('PUT')
+                @csrf
+                <fieldset disabled="disabled">
+                    <div class="form-group">
 
-                   
+                        <label for="title">Nama</label>
+                        <input type="text" class="form-control" name="name" id="disabledTextInput"
+                            placeholder="Isi Nama..." value="{{$item->name}}" id="">
 
-                   
-                    
+                    </div>
+                    <div class="form-group">
+                        <label for="Jenis Laundry">Jenis Laundry</label>
+                        <input type="text" class="form-control" name="jenis" placeholder=""
+                            value="{{$item->jeniss->name}}">
+                        <!-- <select name="jenis" class="form-control dropdown-toggle">
+                    <option value="">---Pilih---</option>
+                    <option value="1">
+                        Cuci Kering
+                    </option>
+                    <option value="2">
+                        Setrika
+                    </option>
+                    <option value="3">
+                        Cuci Kering + Setrika
+                    </option>
+                </select> -->
+                    </div>
 
-               
+                    <div class="form-group">
+                        <label for="berat">Berat</label>
+                        <input type="text" class="form-control" name="berat" placeholder="Isi berat pakaian..."
+                            value="{{$item->berat}} kg" id="">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="berat">Total Bayar</label>
+                        <input type="text" class="form-control" name="harga_total" placeholder="Isi berat pakaian..."
+                            value="{{$item->harga_total}}" id="">
+                    </div>
+                </fieldset>
 
+                <?php 
+                $status_bayar = $item->status_bayar;
+                if ($status_bayar == 1) {
+                    $status_bayar = "Belum Lunas";
+                } elseif ($status_bayar == 2) {
+                    $status_bayar = "Lunas";
+                }
+                $status_progres = $item->status_progres;
+                if ($status_progres == 1) {
+                    $status_progres = "Belum Selesai";
+                } elseif ($status_progres == 2) {
+                    $status_progres = "Selesai";
+                } elseif ($status_progres == 3) {
+                    $status_progres = "Sudah Diambil";
+                } ?>
+                <div class="form-group">
+                    <label for="title">Progress</label>
+                    <select class="form-control dropdown-toggle" name="progres">
+                        <option value="{{$item->status_progres}}">{{$item->status_progres = $status_progres}} - (Saat
+                            ini)</option>
+                        <option value="1">
+                            Belum Selesai
+                        </option>
+                        <option value="2">
+                            Selesai
+                        </option>
+                        <option value="3">
+                            Sudah Diambil
+                        </option>
+                    </select>
                 </div>
-                <!-- /.container-fluid -->
+                <div class="form-group">
+                    <label for="title">Status Pembayaran</label>
+                    <select class="form-control dropdown-toggle" name="bayar">
+                        <option value="{{$item->status_bayar}}">{{$item->status_bayar = $status_bayar}} - (Saat ini)
+                        </option>
+                        <option value="1">
+                            Belum Lunas
+                        </option>
+                        <option value="2">
+                            Lunas
+                        </option>
+
+                    </select>
+                </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- /.container-fluid -->
 @endsection

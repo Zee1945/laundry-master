@@ -12,15 +12,21 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <!-- Nav Item - Dashboard -->
+            <!-- Nav Item - Pelanggan -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('task')}}">
                     <i class="fas fa-fw fa-hotel"></i>
-                    <span>Paket Travel</span></a>
+                    <span>List Pelanggan</span></a>
+            </li>
+            <!-- Nav Item - Harga -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('jenis')}}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Harga Laundry</span></a>
             </li>
 
 
